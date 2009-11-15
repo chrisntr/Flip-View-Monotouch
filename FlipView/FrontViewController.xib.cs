@@ -41,12 +41,14 @@ namespace FlipView
 		{
 			base.ViewDidLoad ();
 			
-			UIImage image = UIImage.FromFile("johnskeet.jpg");
-			UIImageView firstImage = new UIImageView(image);
-			image.Dispose();
-			firstImage.Frame = UIScreen.MainScreen.Bounds;
-			this.View.AddSubview(firstImage);
-			firstImage.Dispose();
+			using(UIImage image = UIImage.FromFile("johnskeet.jpg"))
+			{
+				using(UIImageView firstImage = new UIImageView(image))
+				{
+					firstImage.Frame = UIScreen.MainScreen.Bounds;
+					this.View.AddSubview(firstImage);
+				}
+			}
 		}
 		
 		public override void TouchesBegan (NSSet touches, UIEvent evt)
@@ -54,9 +56,25 @@ namespace FlipView
 			base.TouchesBegan (touches, evt);
 			
 			BackViewController bvc = new BackViewController(this);
-			bvc.ModalTransitionStyle = UIModalTransitionStyle.FlipHorizontal;
+			bvc.ModalTransitionStyle = GetRandomTransitionStyle();
 			PresentModalViewController(bvc, true);
 		}
+		
+		private UIModalTransitionStyle GetRandomTransitionStyle()
+		{
+			Random random = new Random();
+			switch(random.Next(0, 3))
+			{
+				default:
+				case 0:
+					return UIModalTransitionStyle.FlipHorizontal;
+				case 1:
+					return UIModalTransitionStyle.CrossDissolve;
+				case 2:
+					return UIModalTransitionStyle.CoverVertical;
+			}
+		}
+
 
 
 		

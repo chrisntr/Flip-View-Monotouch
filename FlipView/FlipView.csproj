@@ -96,5 +96,7 @@
   <ItemGroup>
     <Content Include="johnskeet.jpg" />
     <Content Include="notjohnskeet.jpg" />
+    <Content Include="Default.png" />
+    <Content Include="Icon.png" />
   </ItemGroup>
 </Project>

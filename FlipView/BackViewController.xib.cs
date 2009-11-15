@@ -43,12 +43,14 @@ namespace FlipView
 		{
 			base.ViewDidLoad ();
 			
-			UIImage image = UIImage.FromFile("notjohnskeet.jpg");
-			UIImageView firstImage = new UIImageView(image);
-			image.Dispose();
-			firstImage.Frame = UIScreen.MainScreen.Bounds;
-			this.View.AddSubview(firstImage);
-			firstImage.Dispose();
+			using(UIImage image = UIImage.FromFile("notjohnskeet.jpg"))
+			{
+				using(UIImageView secondImageView = new UIImageView(image))
+				{
+					secondImageView.Frame = UIScreen.MainScreen.Bounds;
+					this.View.AddSubview(secondImageView);
+				}
+			}
 		}
 		
 		public override void TouchesBegan (NSSet touches, UIEvent evt)
